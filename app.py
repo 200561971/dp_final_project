@@ -1,5 +1,5 @@
 from flask import Flask,jsonify,request, render_template
-
+from Static import utils
 app = Flask(__name__,template_folder='Templates')
 
 
@@ -13,11 +13,11 @@ def piechart():
 
 @app.route('/barchart')
 def barchart():
-    return render_template('barchart.html')
+    return render_template('barchart.html',bar_data = utils.barchart_data)
 
 @app.route('/linechart')
 def linechart():
-    return render_template('linechart.html')
+    return render_template('linechart.html',line_data = utils.linechart_data)
 
 
 
