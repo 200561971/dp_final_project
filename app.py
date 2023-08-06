@@ -4,7 +4,7 @@ app = Flask(__name__,template_folder='Templates')
 
 
 @app.route('/')
-def index():
+def home():
     return render_template('home.html')
 
 @app.route('/piechart')
