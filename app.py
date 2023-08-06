@@ -11,5 +11,10 @@ def index():
 def piechart():
     return render_template('piechart.html')
 
+@app.route('/barchart')
+def barchart():
+    return render_template('barchart.html')
+
+
 if __name__ =="__main__":
     app.run(host="0.0.0.0",port=3000)
