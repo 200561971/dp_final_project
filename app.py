@@ -9,17 +9,29 @@ def home():
 
 @app.route('/piechart')
 def piechart():
-    return render_template('piechart.html')
+    labels = utils.labels
+    values = utils.values
+    return render_template('piechart.html',labels= labels, values = values)
 
 @app.route('/barchart')
 def barchart():
-    return render_template('barchart.html',bar_data = utils.barchart_data)
+
+    labels = utils.labels
+    values = utils.values
+
+    return render_template('barchart.html',labels = labels, values = values)
 
 @app.route('/linechart')
 def linechart():
-    return render_template('linechart.html',line_data = utils.linechart_data)
+    labels = utils.labels
+    values = utils.values
+    return render_template('linechart.html',labels = labels, values = values)
 
-
-
+@app.route('/test')
+def test():
+    labels = utils.labels
+    values = utils.values
+    return render_template('test.html',labels = labels, values= values)
+ 
 if __name__ =="__main__":
     app.run(host="0.0.0.0",port=3000)

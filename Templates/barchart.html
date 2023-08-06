@@ -2,42 +2,63 @@
 {% extends 'base.html' %}
 {% block chart_script %}
 
-    <meta id = "bar-data" data-barchart="{{bar_data}}"> 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawVisualization);
     
-      function drawVisualization() {
-        // Some raw data (not necessarily accurate)
-        var barchart_data = $('#bar-data').data("barchart");
-        var data = google.visualization.arrayToDataTable(
-            [
-            ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-            ['2004/05',  165,      938,         522,             998,           450,      614.6],
-            ['2005/06',  135,      1120,        599,             1268,          288,      682],
-            ['2006/07',  157,      1167,        587,             807,           397,      623],
-            ['2007/08',  139,      1110,        615,             968,           215,      609.4],
-            ['2008/09',  136,      691,         629,             1026,          366,      569.6]
-          ]
-        );
-
-        var options = {
-          title : 'Monthly Coffee Production by Country',
-          vAxis: {title: 'Cups'},
-          hAxis: {title: 'Month'},
-          seriesType: 'bars',
-          series: {5: {type: 'line'}}
-        };
-
-        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
    
 {% endblock %}
 
 
 {% block content %}
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
+<canvas id="bar_chart" style="width: 900px; height: 500px;"></canvas>
+
+
+<script>
+    const backgroundColor = [
+    'rgba(255, 99, 132, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 205, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(153, 102, 255, 0.2)',
+    'rgba(201, 203, 207, 0.2)'
+  ];
+  const borderColor = [
+  'rgb(255, 99, 132)',
+  'rgb(255, 159, 64)',
+  'rgb(255, 205, 86)',
+  'rgb(75, 192, 192)',
+  'rgb(54, 162, 235)',
+  'rgb(153, 102, 255)',
+  'rgb(201, 203, 207)'
+];
+    const data = {
+        labels: {{labels | safe }},
+        datasets: [{
+          label: 'My First Dataset',
+          data: {{values | safe}},
+          backgroundColor: backgroundColor,
+          borderColor: borderColor ,
+          borderWidth: 1  
+         
+        }]
+      };
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            responsive:false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        },
+      };
+
+
+
+
+        var ctx = document.getElementById("bar_chart").getContext("2d");
+        var bar_chart = new Chart(ctx, config)
+</script>
+
 {% endblock %}

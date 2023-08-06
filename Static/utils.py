@@ -23,3 +23,8 @@ barchart_data = [
           ['2007/08',  139,      1110,        615,             968,           215,      609.4],
           ['2008/09',  136,      691,         629,             1026,          366,      569.6]
         ]
+
+
+labels =[ 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average']
+
+values = [ 165,      938,         522,             998,           450,      614.6]
