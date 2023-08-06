@@ -15,6 +15,11 @@ def piechart():
 def barchart():
     return render_template('barchart.html')
 
+@app.route('/linechart')
+def linechart():
+    return render_template('linechart.html')
+
+
 
 if __name__ =="__main__":
     app.run(host="0.0.0.0",port=3000)
