@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'bar',
             data: data,
             options: {
-                responsive: true,
+                responsive: false,
                 plugins: {
                     legend: {
                         display: true,
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'pie',
             data: data,
             options: {
-                responsive: true,
+                responsive: false,
                 plugins: {
                     legend: {
                         display: true,
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'line',
             data: data,
             options: {
-                responsive: true,
+                responsive: false,
                 plugins: {
                     legend: {
                         display: true,
