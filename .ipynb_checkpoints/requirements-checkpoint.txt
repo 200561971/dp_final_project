@@ -1,0 +1,10 @@
+1. Set up Mongo DB Atlas account.
+2. Create a new cluster "BDAT1004" and then a collection named "Group_7"
+3. Connect to the collection using python (reference: https://www.mongodb.com/docs/atlas/tutorial/connect-to-your-cluster/)
+4. Migrate the data in merch_sales.json to Group_7 collection using python (reference: https://www.mongodb.com/languages/python)
+5. Write python functions for querying the following data:
+      a. fetch all data as a list of dictionaries.
+      b. fetch data for a specific country.(input type: string of any of the trading_partner values, output: list of dictionaries)
+      c. fetch data for a specific time period.(input type: tuple of startdate and enddate, output type: list of dictionaries)
+      d. fetch all data based on trade_type.( input type: string of any of the trade_type values , output: list of dictionaries)
+ 
