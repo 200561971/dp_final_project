@@ -1,6 +1,6 @@
 from flask import Flask,jsonify,request, render_template
 from Static import utils
-app = Flask(__name__,template_folder='Templates')
+app = Flask(__name__,template_folder='Templates',static_folder='Static')
 
 
 @app.route('/')
@@ -32,6 +32,11 @@ def test():
     labels = utils.labels
     values = utils.values
     return render_template('test.html',labels = labels, values= values)
- 
+
+@app.route('/chartType',methods=['GET','POST'])
+def chartType():
+    
+    return render_template('home.html')
+
 if __name__ =="__main__":
     app.run(host="0.0.0.0",port=3000)
