@@ -1,5 +1,24 @@
-{% extends 'base.html' %}
-{% block content %}
-   <h1>Welcome to the App</h1> 
-   <h1>This is a test file</h1>     
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Chart Selection</title>
+</head>
+<body>
+    <h1>Dynamic Chart Selection</h1>
+    <form id="chart-form">
+      <label for="chart-select">Select a Chart:</label>
+      <select id="chart-select">
+          <option value="bar">Bar Chart</option>
+          <option value="pie">Pie Chart</option>
+          <option value="line">Line Chart</option>
+      </select>
+      <button type="submit">Change Chart</button>
+  </form>
+    <canvas id="chart-container">
+        <!-- The chart will be displayed here -->
+    </canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
