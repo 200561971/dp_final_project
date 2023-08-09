@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="width: 80%; margin: auto;">
+    <canvas id="stackedBarChart"></canvas>
+</div>
+
+<script>
+    fetch('/getchartdata/3')
+        .then(response => response.json())
+        .then(data => {
+            const countries = Object.keys(data);
+            const values = Object.values(data);
+
+            var ctx = document.getElementById('stackedBarChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                
+                type: 'bar',
+                data: {
+                    labels:['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    datasets: countries.map((country, index) => {
+                        return {
+                            label: country,
+                            data: values[index],
+                            backgroundColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.5)`
+                        };
+                    })
+                },
+                options: {
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
+    var ctx = document.getElementById('stackedBarChart').getContext('2d');
+    
+</script>
+
+
+{% endblock %}

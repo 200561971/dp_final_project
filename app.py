@@ -15,27 +15,23 @@ def Chart1():
    
     return render_template('chart1.html')
 
-# @app.route('/chart2')
-# def Chart1():
-#     db = repository.MongDB_API()
-#     data =  db.chart1()
-#     print(jsonify(data))
-#     return jsonify(data)
+@app.route('/chart2')
+def Chart2():
+    db = repository.MongDB_API()
+    data =  db.chart1()
+    print(jsonify(data))
+    return render_template('chart2.html')
 
-# @app.route('/chart3')
-# def Chart1():
-#     db = repository.MongDB_API()
-#     data =  db.chart1()
-#     print(jsonify(data))
-#     return jsonify(data)
+@app.route('/chart3')
+def Chart3():
+    return render_template('chart3.html')
 
-# @app.route('/chart5')
-# def Chart1():
-#     db = repository.MongDB_API()
-#     data =  db.chart1()
-#     print(jsonify(data))
-#     return jsonify(data)
-
+@app.route('/chart4')
+def Chart4():
+    return render_template('chart4.html')
+@app.route('/chart5')
+def Chart5():
+    return render_template('chart5.html')
 
 
 
