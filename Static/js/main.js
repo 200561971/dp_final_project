@@ -12,16 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var newChartCanvas = document.createElement('canvas');
         newChartCanvas.id = 'chart-container';
-        newChartCanvas.width = '800px';
-        newChartCanvas.height = '600px';
         chartContainer.appendChild(newChartCanvas);
         
         if (selectedChart === 'bar') {
-            drawBarChart();
+            fetchBarChartData();
         } else if (selectedChart === 'pie') {
-            drawPieChart();
+            fetchPieChartData();
         } else if (selectedChart === 'line') {
-            drawLineChart();
+            fetchLineChartData();
         }
     });
 
@@ -33,14 +31,67 @@ document.addEventListener('DOMContentLoaded', function () {
         chartContainer.innerHTML = '';
     }
 
-    function drawBarChart() {
+
+
+
+    // ================= Fetching Data======================
+    
+    //=====Fetch Barchart Data=====
+    function fetchBarChartData() {
+        fetch('/barchart_data')
+            .then(response => response.json())
+            .then(data => {
+                const labels = data.labels;
+                const values = data.values;
+                drawBarChart(labels, values);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
+    //=====Fetch LineChart Data=====
+    function fetchLineChartData() {
+        fetch('/linechart_data')
+            .then(response => response.json())
+            .then(data => {
+                const labels = data.labels;
+                const values = data.values;
+                drawLineChart(labels, values);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
+    //====== Fetch Piechart Data
+    function fetchPieChartData() {
+        fetch('/piechart_data')
+            .then(response => response.json())
+            .then(data => {
+                const labels = data.labels;
+                const values = data.values;
+                drawPieChart(labels, values);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
+
+    
+
+    //================ Displaying Chart============
+
+    //=====Barchart==============
+    function drawBarChart(labels, values) {
         // Sample Bar Chart Data
         const data = {
-            labels: ['A', 'B', 'C', 'D'],
+            labels: labels,
             datasets: [
                 {
                     label: 'Sample Bar Chart',
-                    data: [10, 20, 15, 30],
+                    data: values,
                     backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)'],
                     borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
                     borderWidth: 1
@@ -52,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'bar',
             data: data,
             options: {
-                responsive: false,
+                responsive: true,
                 plugins: {
                     legend: {
                         display: true,
@@ -65,13 +116,14 @@ document.addEventListener('DOMContentLoaded', function () {
         currentChart = new Chart(chartContainer, config); // Assign the currentChart variable
     }
 
-    function drawPieChart() {
+    //=====PieChart==============
+    function drawPieChart(labels, values) {
         // Sample Pie Chart Data
         const data = {
-            labels: ['A', 'B', 'C', 'D'],
+            labels: labels,
             datasets: [
                 {
-                    data: [30, 10, 20, 15],
+                    data: values,
                     backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)'],
                     borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
                     borderWidth: 1
@@ -83,7 +135,8 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'pie',
             data: data,
             options: {
-                responsive: false,
+                maintainAspectRatio: false,
+                responsive: true,
                 plugins: {
                     legend: {
                         display: true,
@@ -96,14 +149,18 @@ document.addEventListener('DOMContentLoaded', function () {
         currentChart = new Chart(chartContainer, config); // Assign the currentChart variable
     }
 
-    function drawLineChart() {
+
+    
+    //=====LineChart==============
+
+    function drawLineChart(labels, values) {
         // Sample Line Chart Data
         const data = {
-            labels: ['January', 'February', 'March', 'April', 'May'],
+            labels: labels,
             datasets: [
                 {
                     label: 'Sample Line Chart',
-                    data: [10, 20, 15, 30, 25],
+                    data: values,
                     borderColor: ['rgba(255, 99, 132, 1)'],
                     borderWidth: 2,
                     fill: false
@@ -115,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'line',
             data: data,
             options: {
-                responsive: false,
+                responsive: true,
                 plugins: {
                     legend: {
                         display: true,
@@ -128,7 +185,6 @@ document.addEventListener('DOMContentLoaded', function () {
         currentChart = new Chart(chartContainer, config); // Assign the currentChart variable
     }
 
-    // Initial chart rendering
-    drawBarChart();
+  
 
 });
