@@ -1,5 +1,6 @@
 from flask import Flask,jsonify,request, render_template
 from Static import utils
+import repository
 app = Flask(__name__,template_folder='Templates',static_folder='Static')
 
 
@@ -7,40 +8,59 @@ app = Flask(__name__,template_folder='Templates',static_folder='Static')
 def home():
     return render_template('home.html')
 
-@app.route('/test')
-def test():
-    labels = utils.labels
-    values = utils.values
-    return render_template('test.html',labels = labels, values= values)
-
-@app.route('/chartType',methods=['GET','POST'])
-def chartType():
-    return render_template('home.html')
-
-@app.route('/barchart_data')
-def barchart_data():
-    data = {
-        'labels': utils.labels,
-        'values': utils.values
-    }
-
-    return jsonify(data)
 
 
-@app.route('/piechart_data')
-def piechart_data():
-    data ={
-        'labels': utils.labels,
-        'values': utils.values
-    }
-    return jsonify(data)
+@app.route('/chart1')
+def Chart1():
+   
+    return render_template('chart1.html')
 
-@app.route('/linechart_data')
-def linechart_data():
-    data = {
-        'labels': utils.labels,
-        'values': utils.values
-    }
+# @app.route('/chart2')
+# def Chart1():
+#     db = repository.MongDB_API()
+#     data =  db.chart1()
+#     print(jsonify(data))
+#     return jsonify(data)
+
+# @app.route('/chart3')
+# def Chart1():
+#     db = repository.MongDB_API()
+#     data =  db.chart1()
+#     print(jsonify(data))
+#     return jsonify(data)
+
+# @app.route('/chart5')
+# def Chart1():
+#     db = repository.MongDB_API()
+#     data =  db.chart1()
+#     print(jsonify(data))
+#     return jsonify(data)
+
+
+
+
+@app.route('/getchartdata/<int:chartnum>')
+def get_chart_data(chartnum:int):
+    db = repository.MongDB_API()
+    
+    if chartnum ==1:
+        data = db.chart1()
+    
+    elif chartnum ==2 :
+        data = db.chart2()
+    
+    elif chartnum == 3 :
+        data = db.chart3()
+    
+    elif chartnum ==4:
+        data = db.chart4()
+    
+    elif chartnum ==5:
+        data = db.chart5()
+
+    else:
+        data = {}
+
     return jsonify(data)
 
 
