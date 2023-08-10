@@ -12,10 +12,12 @@
         .then(data => {
             const type = Object.keys(data);
             const values = Object.values(data);
-
+            values.splice(2)
+            type.splice(2)
+            console.log(type);
             var ctx = document.getElementById('stackedBarChart').getContext('2d');
             var myChart = new Chart(ctx, {
-                
+            
                 type: 'bar',
                 data: {
                     labels:data['countries'],
