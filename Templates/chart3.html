@@ -26,6 +26,16 @@
                     })
                 },
                 options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: `Stacked Bar Chart of Total Value by Month and Country`,
+                            position: 'top'
+                          },
+                        legend: {
+                            display: true
+                        }
+                    },
                     scales: {
                         x: {
                             stacked: true,
@@ -40,7 +50,8 @@
                                 display: true,
                                 text: 'Total Value in Millions'
                             }
-                        }
+                        },
+                       
                     }
                 }
             });

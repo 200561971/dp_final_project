@@ -13,7 +13,7 @@ fetch('/getchartdata/2')
     .then(response => response.json())
     .then(data => {
         var chartData = {
-            labels: data['labels'],
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
                 data: data['values'],
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -39,6 +39,10 @@ fetch('/getchartdata/2')
                 }
             },
             plugins: {
+                title: {
+                    display: true,
+                    text: `Month-wise Trade Balance Values`,
+                  },
                 legend: {
                     display: false
                 }

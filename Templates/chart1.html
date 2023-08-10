@@ -23,7 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
 <script>
     // JavaScript code to generate charts using Chart.js
-    function drawChart1(labels, values, canvasId) {
+    function drawChart1(labels, values, canvasId, trade_type) {
         var pieChartColors = [
     'rgba(255, 99, 132, 0.8)',
     'rgba(54, 162, 235, 0.8)',
@@ -49,7 +49,12 @@
             data: data,
             options: {
                 responsive: false,
-            
+                plugins: {
+                    title: {
+                      display: true,
+                      text: `Total ${trade_type} by country`,
+                    }
+                  }
             }
         };
 
@@ -80,9 +85,9 @@
                 chartContainer.appendChild(newChartCanvas);
                 
                 if (selectedChart === 'Import') {
-                    drawChart1(import_labels, import_values, 'new-chart-canvas');
+                    drawChart1(import_labels, import_values, 'new-chart-canvas',"Import");
                 } else if (selectedChart === 'Export') {
-                    drawChart1(export_labels, export_values, 'new-chart-canvas');
+                    drawChart1(export_labels, export_values, 'new-chart-canvas',"Export");
                 }
             });
 
