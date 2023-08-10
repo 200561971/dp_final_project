@@ -1,76 +1,99 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-4">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-md-6">
-            <canvas id="chart_1"></canvas>
+            <div class="mb-3 text-center"> <!-- Add "text-center" class to center-align the label -->
+                <label for="chartSelect" class="form-label">Select a Trade Type</label>
+                <select class="form-select" id="chartSelect">
+                    <option disabled selected value="null">Select an Option</option>
+                    <option value="Import">Import</option>
+                    <option value="Export">Export</option>
+                    <!-- Add more options for different charts -->
+                </select>
+            </div>
         </div>
-        
+        <div class="row justify-content-center align-items-center" id="chart-container" style="width: 700px; height: 700px;">
+            <canvas id="new-chart-canvas" style="margin: auto;"></canvas>
+        </div>
     </div>
+    
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
 <script>
     // JavaScript code to generate charts using Chart.js
-    function drawChart1(labels, values, chartnum) {
-        console.log(labels);
-        // Sample Pie Chart Data
-        const data = {
+    function drawChart1(labels, values, canvasId) {
+        var pieChartColors = [
+    'rgba(255, 99, 132, 0.8)',
+    'rgba(54, 162, 235, 0.8)',
+    'rgba(255, 206, 86, 0.8)',
+    'rgba(75, 192, 192, 0.8)',
+    'rgba(153, 102, 255, 0.8)',
+    'rgba(255, 159, 64, 0.8)'
+];
+        var ctx = document.getElementById(canvasId).getContext('2d');
+        var data = {
             labels: labels,
-            datasets: [
-                {
-                    data: values,
-                    backgroundColor:  [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(128, 128, 128, 0.2)',
-                    'rgba(0, 255, 0, 0.2)',
-                    'rgba(255, 0, 0, 0.2)',
-                    // Add more colors as needed
-                ],
-                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
-                    borderWidth: 1
-                }
-            ]
+            datasets: [{
+                label: 'Trade Data',
+                data: values,
+                backgroundColor: pieChartColors, // Customize as needed
+                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'], // Customize as needed
+                borderWidth: 1
+            }]
         };
 
-        const config = {
-            type: 'pie',
+        var config = {
+            type: 'pie', // Change chart type as needed
             data: data,
             options: {
-                maintainAspectRatio: false,
                 responsive: false,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'left'
-                    }
-                }
+            
             }
         };
 
-        // Modify the following lines based on your needs
-        const chartContainer = document.getElementById('chart_1');
-        const currentChart = new Chart(chartContainer, config);
+        new Chart(ctx, config);
     }
-
+    
     // Fetch and draw the charts using AJAX
-    fetch('/getchartdata/1')
+    document.addEventListener('DOMContentLoaded', function () {
+        var chartContainer = document.getElementById('chart-container');
+        var chartSelect = document.getElementById('chartSelect');
+        
+        fetch('/getchartdata/1')
         .then(response => response.json())
-        .then(data => 
-        {
-            console.log(data)
-            var import_lables = data.import_labels;          
+        .then(data => {
+            var currentChart;
+            var import_labels = data.import_labels;
             var import_values = data.import_values;
             var export_labels = data.export_labels;
-            var export_values = data.export_values;   
+            var export_values = data.export_values;
             
-            drawChart1(import_lables, import_values, 1);
-       
+            chartSelect.addEventListener('change', () => {
+                var selectedChart = chartSelect.value;
+                clearChartContainer();
+
+                var newChartCanvas = document.createElement('canvas');
+                newChartCanvas.id = 'new-chart-canvas';
+                newChartCanvas.style.justifyContent = 'center';
+                chartContainer.appendChild(newChartCanvas);
+                
+                if (selectedChart === 'Import') {
+                    drawChart1(import_labels, import_values, 'new-chart-canvas');
+                } else if (selectedChart === 'Export') {
+                    drawChart1(export_labels, export_values, 'new-chart-canvas');
+                }
+            });
+
+            function clearChartContainer() {
+                if (currentChart) {
+                    currentChart.destroy();
+                }
+                chartContainer.innerHTML = '';
+            }
         });
+    });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

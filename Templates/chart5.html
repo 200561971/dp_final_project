@@ -51,6 +51,21 @@ function drawLineChart(labels, values) {
         type: 'line',
         data: data,
         options: {
+            scales:{
+                x: {
+                    
+                    title: {
+                        display: true,
+                        text: 'Year'
+                    }
+                },
+                y:{
+                    title: {
+                        display: true,
+                        text: 'Total Value in Million'
+                    }
+                }
+            },
             responsive: true,
             plugins: {
                 legend: {

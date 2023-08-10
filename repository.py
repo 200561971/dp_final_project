@@ -33,7 +33,7 @@ class MongDB_API:
 
 
         data = {
-            'import_lables': import_labels,
+            'import_labels': import_labels,
             'import_values': import_results,
             'export_labels': export_labels,
             'export_values':export_results

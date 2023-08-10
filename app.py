@@ -4,12 +4,6 @@ import repository
 app = Flask(__name__,template_folder='Templates',static_folder='Static')
 
 
-@app.route('/')
-def home():
-    return render_template('home.html')
-
-
-
 @app.route('/chart1')
 def Chart1():
    
@@ -32,6 +26,10 @@ def Chart4():
 @app.route('/chart5')
 def Chart5():
     return render_template('chart5.html')
+
+@app.route('/')
+def home():
+    return render_template('home.html')
 
 
 

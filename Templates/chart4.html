@@ -29,14 +29,21 @@
                     })
                 },
                 options: {
-                    scales: {
+                    scales:{
                         x: {
-                            stacked: true
+                            
+                            title: {
+                                display: true,
+                                text: 'Total Value'
+                            }
                         },
-                        y: {
-                            stacked: true
+                        y:{
+                            title: {
+                                display: true,
+                                text: 'Country'
+                            }
                         }
-                    }
+                    },
                 }
             });
         })
